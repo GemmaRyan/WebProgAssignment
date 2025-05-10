@@ -1,0 +1,49 @@
+<div class="container">
+    <h1>Pokemon TCG Finder</h1>
+  
+    <form (submit)="getCardDetails(pokeName.value)">
+      <div class="form-group">
+        <input type="text" #pokeName class="form-control" placeholder="Enter Pokémon name">
+      </div>
+      <div class="form-group mt-2">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </form>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  
+    <div *ngIf="pokeData as p" class="row bg-light mt-4 p-4">
+      <div class="col-sm-4">
+        <img [src]="p.images.small" class="img-fluid" [alt]="p.name">
+      </div>
+      <div class="col-sm-8">
+        <h2>{{ p.name }}</h2>
+        <p><strong>HP:</strong> {{ p.hp || 'N/A' }}</p>
+        <p><strong>Supertype:</strong> {{ p .supertype || 'N/A' }}</p>
+  
+        <div *ngIf="p.subtypes && p.subtypes.length > 0">
+          <p><strong>Subtypes:</strong></p>
+          <ul>
+            <li *ngFor="let subtype of p.subtypes">{{ subtype }}</li>
+          </ul>
+        </div>
+        <div *ngIf="!p.subtypes || p.subtypes.length === 0">
+          <p><strong>Subtypes:</strong> N/A</p>
+        </div>
+  
+        <div *ngIf="p.types && p.types.length > 0">
+          <p><strong>Types:</strong></p>
+          <ul>
+            <li *ngFor="let type of pokeData.types">{{ type }}</li>
+          </ul>
+        </div>
+        <div *ngIf="!p.types || p.types.length === 0">
+          <p><strong>Types:</strong> N/A</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

@@ -1,26 +1,20 @@
 import { Component } from '@angular/core';
-import { PokeApiService } from './services/poke-api.service';
-import { PokemonResponse } from './pokemonresponse';
-import {CommonModule} from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-
-import { SearchtitleComponent } from './components/searchtitle/searchtitle.component';
+import { PokeApiService } from '../../services/poke-api.service';
+import { PokemonResponse } from '../../pokemonresponse';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  imports:[CommonModule,RouterOutlet]
+  selector: 'app-searchtitle',
+  imports: [],
+  templateUrl: './searchtitle.component.html',
+  styleUrl: './searchtitle.component.css'
 })
-export class AppComponent {
-  title = 'Pokemon TCG Finder';
-  pokeData?: PokemonResponse;
-  errorMessage = '';
+export class SearchtitleComponent {
 
   constructor(private pokeApiService: PokeApiService) {}
 
-  getCardDetails(pokeName: string): boolean {
+   getCardDetails(pokeName: string): boolean {
     this.pokeApiService.getCardByName(pokeName).subscribe({
       next: (data) => {
         if (data) {
@@ -40,4 +34,9 @@ export class AppComponent {
 
     return false; // prevent page reload
   }
+
+
+
+  pokeData : PokemonResponse | undefined;
+  errorMessage = '';
 }
