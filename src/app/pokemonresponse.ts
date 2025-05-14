@@ -8,7 +8,7 @@ export interface PokemonResponse{
   types?: string[];
   evolvesFrom?: string;
   evolvesTo?: string[];
-  images: ICardImage;
+  images?: {small: string};
 
   errorMessage: string;
 

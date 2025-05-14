@@ -12,7 +12,7 @@ import { PokemonResponse2 } from '../../pokemonresponse2';
 })
 export class SearchTitleComponent {
   constructor(private pokeApiService: PokeApiService) {}
-  pokeData: PokemonResponse2 | undefined; 
+  pokeData: PokemonResponse2[] = []; 
   currentPage: number = 1;
   maxPages: number = 0;
   errorMessage: any;
@@ -21,8 +21,7 @@ export class SearchTitleComponent {
   getPokeDetails(name:string): boolean {
     this.pokeApiService.getPokemonData(name,this.currentPage).subscribe(
       pokeData => {
-        this.pokeData=pokeData;
-        
+        this.pokeData.push(pokeData);
       }
     )
     return false;
@@ -34,7 +33,7 @@ export class SearchTitleComponent {
       this.currentPage=1;
     this.pokeApiService.getPokemonData(name, this.currentPage).subscribe(
       pokeData => {
-        this.pokeData=pokeData;
+        this.pokeData.push(pokeData);
       }
     )
     return false;
@@ -44,7 +43,7 @@ export class SearchTitleComponent {
     this.currentPage++;
     this.pokeApiService.getPokemonData(name, this.currentPage).subscribe(
       pokeData => {
-        this.pokeData=pokeData;
+         this.pokeData.push(pokeData);
       }
     )
     return false;
