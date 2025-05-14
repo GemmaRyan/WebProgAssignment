@@ -1,43 +1,32 @@
 import { Component } from '@angular/core';
-import { PokeApiService } from './services/poke-api.service';
 import { PokemonResponse } from './pokemonresponse';
-import {CommonModule} from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { PokeApiService } from './services/poke-api.service';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterLinkActive , RouterLink } from '@angular/router';
+import { SearchComponent } from './components/search/search.component';
 
-import { SearchtitleComponent } from './components/searchtitle/searchtitle.component';
 
 
 @Component({
   selector: 'app-root',
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  imports:[CommonModule,RouterOutlet]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Pokemon TCG Finder';
-  pokeData?: PokemonResponse;
-  errorMessage = '';
+  title = 'Pokemon Cards';
+  pokeData:PokemonResponse| undefined;
+  errorMessage: any;
 
   constructor(private pokeApiService: PokeApiService) {}
 
-  getCardDetails(pokeName: string): boolean {
-    this.pokeApiService.getCardByName(pokeName).subscribe({
-      next: (data) => {
-        if (data) {
-          this.pokeData = data;
-          this.errorMessage = '';
-        } else {
-          this.pokeData = undefined;
-          this.errorMessage = 'No card found for that name.';
-        }
-      },
-      error: (err) => {
-        console.error(err);
-        this.pokeData = undefined;
-        this.errorMessage = 'Error fetching data.';
+  getPokeDetails(name: string): boolean {
+    this.pokeApiService.getPokeData(name).subscribe(
+      pokeData => {
+        this.pokeData = pokeData;
+        console.log('Poke Data:', this.pokeData.types);
       }
-    });
-
-    return false; // prevent page reload
+    );
+    return false;
   }
 }

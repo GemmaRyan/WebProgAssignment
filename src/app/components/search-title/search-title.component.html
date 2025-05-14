@@ -1,0 +1,41 @@
+
+<div class="container">
+    <h1>Search</h1>
+  
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" #moviename  placeholder="Enter Pokemon" aria-label="Find Pokemon">
+          <button (click)="getPokeDetails(name.value)" class="btn btn-outline-success" type="submit" >Search</button>
+        </form>
+      </div>
+    </nav>  
+  
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#" (click)="getPreviousPage(name.value)">Previous</a></li>     
+      <li class="page-item"><a class="page-link" href="#">Page {{this.currentPage}} ({{pokeData?.totalResults}} results)</a></li>
+      <li class="page-item"><a class="page-link" href="#" (click)="getNextPage(name.value)">Next</a></li>
+    </ul>
+  
+
+    <div *ngIf="pokeData">
+      <div class="row bg-light mt-4 p-4" *ngIf="pokeData && pokeData.errorMessage">
+        <div class="col-sm-4">
+          <div>
+            <h3>{{pokeData.errorMessage}}</h3>
+          </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" *ngIf="pokeData">
+      <div class="col"  *ngFor="let poke of pokeData.Search">
+        <div class="card mt-3">
+          <img src="{{poke.images?.small}}" >
+          <div class="card-body">
+            <h5 class="card-title">{{poke.name}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

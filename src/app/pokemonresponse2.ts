@@ -1,5 +1,10 @@
 import { ICardImage } from "./interfaces/image";
-export interface PokemonResponse{
+export interface PokemonResponse2{
+    Search: pokeDetails[];
+    totalResults: string;
+    Error:string;
+}
+ interface pokeDetails {
     id: string;
   name: string;
   supertype?: string;
@@ -9,7 +14,4 @@ export interface PokemonResponse{
   evolvesFrom?: string;
   evolvesTo?: string[];
   images: ICardImage;
-
-  errorMessage: string;
-
-}
+ }
